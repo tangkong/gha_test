@@ -29,7 +29,8 @@ jobs:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
         echo "$GITHUB_CONTEXT"
-        git config --list
+        git config --get user.name
+        git config --get user.email
     - name: push to main
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
