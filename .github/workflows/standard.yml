@@ -25,7 +25,7 @@ jobs:
         fetch-depth: 0
     - uses: ./.github/actions/csv_to_xml
     - name: push to main
-      if: github.event.pull_request.merged == 'true'
+      if: github.event.pull_request.merged == true
       run: |
         git config --global user.name github-actions
         git config --global user.email github-actions@github.com
