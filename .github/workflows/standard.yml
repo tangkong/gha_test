@@ -1,0 +1,29 @@
+name: Process on PR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-xml:
+    runs-on: ubuntu-20.04
+
+    defaults:
+      run:
+        # The following allows for each run step to utilize ~/.bash_profile
+        # for setting up the per-step initial state.
+        # --login: a login shell. Source ~/.bash_profile
+        # -e: exit on first error
+        # -o pipefail: piped processes are important; fail if they fail
+        shell: bash --login -eo pipefail {0}
+
+    steps: 
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Echo status
+      run: echo "Hello status"
+    - name: run script
+      run: |
+        python scripts/convert.py data/
