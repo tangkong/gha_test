@@ -24,6 +24,10 @@ jobs:
       with:
         fetch-depth: 0
     - uses: ./.github/actions/csv_to_xml
+    - name: dump github
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
     - name: push to main
       if: github.event.pull_request.merged == 'true'
       run: |
