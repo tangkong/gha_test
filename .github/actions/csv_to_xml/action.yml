@@ -2,12 +2,14 @@ name: "convert csv to xml"
 description: "Convert csv files in data/ to xml and place them into export"
 
 runs:
-  - run: echo "Hello status"
-    shell: bash
-  - run: python scripts/convert.py data/ export/
-    shell: bash
-  - run: |
-      rm -rf export/*
-      cp data/* export/
-      ls export/
-    shell: bash
+  using: "composite"
+  steps:
+    - run: echo "Hello status"
+      shell: bash
+    - run: python scripts/convert.py data/ export/
+      shell: bash
+    - run: |
+        rm -rf export/*
+        cp data/* export/
+        ls export/
+      shell: bash
