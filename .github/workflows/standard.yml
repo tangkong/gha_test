@@ -29,4 +29,5 @@ jobs:
         python scripts/convert.py data/ export/
     - name: copy files
       run: |
+        rm -rf export/*
         cp data/* export/
