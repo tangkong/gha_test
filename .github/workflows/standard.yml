@@ -35,5 +35,5 @@ jobs:
         git config --global user.email github-actions@github.com
         git add export/*
         git commit -m 'convert to xml'
-        git push
         ls export/
+        git push
