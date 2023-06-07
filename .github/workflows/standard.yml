@@ -29,14 +29,9 @@ jobs:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: |
         echo "$GITHUB_CONTEXT"
-    - name: show github username
-      run: |
-        git config --get user.email
     - name: push to main
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        git config --global user.name github-actions
-        git config --global user.email github-actions@github.com
         git commit -am 'convert to xml'
         ls export/
         git push
