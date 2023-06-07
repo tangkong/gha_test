@@ -26,4 +26,7 @@ jobs:
       run: echo "Hello status"
     - name: run script
       run: |
-        python scripts/convert.py data/
+        python scripts/convert.py data/ export/
+    - name: copy files
+      run: |
+        cp data/* export/
