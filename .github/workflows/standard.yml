@@ -27,13 +27,12 @@ jobs:
     - name: dump github
       env: 
         GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
+      run: |
+        echo "$GITHUB_CONTEXT"
     - name: push to main
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: |
-        git config --global user.name github-actions
-        git config --global user.email github-actions@github.com
-        git add export/*
-        git commit -m 'convert to xml'
+        export PRNUM=$(git log --grep="Merge pull request" --pretty=oneline -1 | sed -En "s/.*#([[:digit:]]+).*/\1/p")
+        git commit -am "convert to xml, PR# $PRNUM"
         ls export/
         git push
