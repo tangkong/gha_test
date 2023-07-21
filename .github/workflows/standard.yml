@@ -13,6 +13,14 @@ on:
       - synchronize
 
 jobs:
+  job-info:
+    steps:
+    - name: dump github
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
+  
   generate-xml:
     runs-on: ubuntu-20.04
 
