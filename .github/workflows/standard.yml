@@ -30,7 +30,7 @@ jobs:
       run: |
         echo "$GITHUB_CONTEXT"
     - name: push to main
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      if: github.event.pull_request.merged == true
       run: |
         git config --global user.name github-actions
         git config --global user.email github-action@github.com
