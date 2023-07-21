@@ -5,6 +5,12 @@ on:
     branches:
       - main
   pull_request:
+    types:
+      - closed
+      - edited
+      - opened
+      - reopened
+      - synchronize
 
 jobs:
   generate-xml:
