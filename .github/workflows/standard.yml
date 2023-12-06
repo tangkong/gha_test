@@ -5,6 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      env: ${{ secrets.COOL_SECRET }}
     - name: Setup tmate session
+      env: ${{ secrets.COOL_SECRET }}
       uses: mxschmitt/action-tmate@v3
-      secrets: inherit
