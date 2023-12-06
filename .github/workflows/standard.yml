@@ -11,3 +11,5 @@ jobs:
       env:
         SECRET: ${{ secrets.COOL_SECRET }}
       uses: mxschmitt/action-tmate@v3
+    - name: Setup tmate session 2
+      uses: mxschmitt/action-tmate@v3
