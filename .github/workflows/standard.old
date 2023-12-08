@@ -1,0 +1,46 @@
+name: Process on PR
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - closed
+      - edited
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  generate-xml:
+    runs-on: ubuntu-20.04
+
+    defaults:
+      run:
+        # The following allows for each run step to utilize ~/.bash_profile
+        # for setting up the per-step initial state.
+        # --login: a login shell. Source ~/.bash_profile
+        # -e: exit on first error
+        # -o pipefail: piped processes are important; fail if they fail
+        shell: bash --login -eo pipefail {0}
+
+    steps: 
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - uses: ./.github/actions/csv_to_xml
+    - name: dump github
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: |
+        echo "$GITHUB_CONTEXT"
+    - name: push to main
+      if: github.event.pull_request.merged == true
+      run: |
+        git config --global user.name github-actions
+        git config --global user.email github-action@github.com
+        export PRNUM=$(git log --grep="Merge pull request" --pretty=oneline -1 | sed -En "s/.*#([[:digit:]]+).*/\1/p")
+        git commit -am "convert to xml, PR# $PRNUM"
+        ls export/
+        git push
