@@ -15,8 +15,15 @@ jobs:
     - uses: actions/checkout@v3
       env: 
         SECRET: ${{ secrets.COOL_SECRET }}
+    
+    - name: echo something
+      env:
+        WORKFLOW_DISPATCH: ${{ github.event_name }}
+        DEBUG_ENABLED: ${{ inputs.debug_enabled }}
+      run: echo $WORKFLOW_DISPATCH $DEBUG_ENABLED
+
     - name: Setup tmate session on dispatch
-      if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled && failure()}}
+      if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
       uses: mxschmitt/action-tmate@v3
       with:
         limit-access-to-actor: true 
